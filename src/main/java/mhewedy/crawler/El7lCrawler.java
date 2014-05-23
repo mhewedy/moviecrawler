@@ -1,6 +1,7 @@
 package mhewedy.crawler;
 
 import mhewedy.Movie;
+import mhewedy.Util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,7 +52,9 @@ public class El7lCrawler implements WebsiteCrawler {
             }else{
                 url += "/" + pageNo + ".html";
             }
-            System.out.println("requesting " + url);
+
+            Util.printVerbose("requesting " + url);
+
             HttpURLConnection conn = openConnection(url);
             InputStream stream = conn.getInputStream();
 

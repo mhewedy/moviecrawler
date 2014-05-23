@@ -20,7 +20,6 @@ public class ImdbRater implements WebsiteRater {
 
         String url = "http://www.imdb.com/xml/find?q=Goodbye+World+2013&s=all&json=1";
 
-
         Map<String, String> opts = new HashMap<>();
         opts.put("q", "Goodbye World 2013");
         opts.put("s", "all");
