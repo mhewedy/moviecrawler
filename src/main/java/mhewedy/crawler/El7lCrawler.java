@@ -64,7 +64,6 @@ public class El7lCrawler implements WebsiteCrawler {
             stream.close();
             conn.disconnect();
         }while (ret.size() < limit);
-
         return ret;
     }
 

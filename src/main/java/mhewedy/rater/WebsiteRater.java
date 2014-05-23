@@ -1,13 +1,16 @@
 package mhewedy.rater;
 
+import mhewedy.Movie;
+
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by mhewedy on 5/23/14.
  */
 public interface WebsiteRater {
 
-    Map<String, Integer> getMovieRatings(List<String> movieNameList);
+    Map<Movie, Integer> getMovieRatings(Set<Movie> movieNameList);
 
 }
