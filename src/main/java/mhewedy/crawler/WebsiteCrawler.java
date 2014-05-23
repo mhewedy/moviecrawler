@@ -1,6 +1,7 @@
 package mhewedy.crawler;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -20,10 +21,10 @@ public interface WebsiteCrawler {
         return "invalid url";
     }
 
-    List<String> getMovieNames(String url, int limit) throws IOException;
+    java.util.Set<mhewedy.Movie> getMovieNames(String url, int limit) throws IOException;
 
     static WebsiteCrawler getCrawler(String url){
-        final WebsiteCrawler defaultCrawler = (u, l) -> Collections.emptyList();
+        final WebsiteCrawler defaultCrawler = (u, l) -> Collections.emptySet();
 
         URI uri = URI.create(url);
         String host = uri.getHost();
@@ -36,5 +37,11 @@ public interface WebsiteCrawler {
         }else{
             return defaultCrawler;
         }
+    }
+
+    default HttpURLConnection openConnection(String url) throws IOException {
+        HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+        conn.setRequestProperty("User-Agent", "moviecrawler");
+        return conn;
     }
 }

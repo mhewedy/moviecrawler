@@ -54,8 +54,19 @@ public class AppTest
 
     public void testEl7lCrawler(){
         WebsiteCrawler crawler = WebsiteCrawler.getCrawler("http://el7l.co");
+        String url = "http://el7l.co/online2/415/%D8%A7%D9%81%D9%84%D8%A7%D9%85_%D8%A7%D8%AC%D9%86%D8%A8%D9%8A%D8%A9/1.html";
         try {
-            assertTrue(!crawler.getMovieNames("http://el7l.co/", -1).isEmpty());
+            assertEquals(crawler.getMovieNames(url, 40).size(), 40);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testEl7lCrawler2(){
+        WebsiteCrawler crawler = WebsiteCrawler.getCrawler("http://el7l.co");
+        String url = "http://el7l.co/tag/%D8%A7%D9%81%D9%84%D8%A7%D9%85+%D8%B1%D8%B9%D8%A8";
+        try {
+            assertTrue(crawler.getMovieNames(url, 100).size() == 120);
         } catch (IOException e) {
             e.printStackTrace();
         }
