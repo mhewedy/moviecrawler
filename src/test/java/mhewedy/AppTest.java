@@ -6,6 +6,8 @@ import junit.framework.TestSuite;
 import mhewedy.crawler.El7lCrawler;
 import mhewedy.crawler.WebsiteCrawler;
 
+import java.io.IOException;
+
 /**
  * Unit test for simple App.
  */
@@ -43,7 +45,20 @@ public class AppTest
 
     public void testNonExistCrawler2(){
         WebsiteCrawler crawler = WebsiteCrawler.getCrawler("http://newWebsite.com");
-        assertEquals(crawler.getMovieNames("http://newWebsite.com", -1).size(), 0);
+        try {
+            assertEquals(crawler.getMovieNames("http://newWebsite.com", -1).size(), 0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testEl7lCrawler(){
+        WebsiteCrawler crawler = WebsiteCrawler.getCrawler("http://el7l.co");
+        try {
+            assertTrue(!crawler.getMovieNames("http://el7l.co/", -1).isEmpty());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
