@@ -41,4 +41,9 @@ public class AppTest
         assertEquals(crawler.getDomain(), "invalid url");
     }
 
+    public void testNonExistCrawler2(){
+        WebsiteCrawler crawler = WebsiteCrawler.getCrawler("http://newWebsite.com");
+        assertEquals(crawler.getMovieNames("http://newWebsite.com", -1).size(), 0);
+    }
+
 }
