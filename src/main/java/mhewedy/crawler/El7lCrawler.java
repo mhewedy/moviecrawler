@@ -30,7 +30,7 @@ public class El7lCrawler implements WebsiteCrawler {
                 line.indexOf(MOVIE_LINE_END));
         String link = line.substring(line.indexOf(HREF_START) + HREF_START.length(), line.indexOf(MOVIE_LINE_START));
 
-        if (name.contains(QUALITY)){
+        if (name.contains(QUALITY)) {
             name = name.substring(0, name.indexOf(QUALITY));
         }
         return new Movie(name, link);
@@ -44,37 +44,33 @@ public class El7lCrawler implements WebsiteCrawler {
     @Override
     public Set<Movie> getMovies(String url, int limit) throws IOException {
 
-        if (limit == -1){
-            limit= Integer.MAX_VALUE;
+        if (limit == -1) {
+            limit = Integer.MAX_VALUE;
         }
 
         Set<Movie> ret = new HashSet<>();
         int pageNo = 1;
-        do{
-            if (url.matches(".+/\\d+\\.html")){
+        do {
+            if (url.matches(".+/\\d+\\.html")) {
                 url = url.replaceAll("/\\d+\\.html", "/" + pageNo + ".html");
-            }else{
+            } else {
                 url += "/" + pageNo + ".html";
             }
 
             Util.printVerbose("requesting " + url);
-
             HttpURLConnection conn = openConnection(url);
             InputStream stream = conn.getInputStream();
-
             BufferedReader br = new BufferedReader(new InputStreamReader(stream));
-
-            ret.addAll(_getMovieNames(br.lines()));
-
+            ret.addAll(_getMovie(br.lines()));
             pageNo++;
 
             stream.close();
             conn.disconnect();
-        }while (ret.size() < limit);
+        } while (ret.size() < limit);
         return ret;
     }
 
-    private Set<Movie> _getMovieNames(Stream<String> lines) {
+    private Set<Movie> _getMovie(Stream<String> lines) {
         Set<Movie> movies = lines.filter(line -> line.contains(MOVIE_LINE_START))
                 .map(El7lCrawler::getMovieObject)
                 .map(movie -> new Movie(movie.getName().replace(FILM, "").trim(), movie.getLink()))
