@@ -8,7 +8,9 @@ import mhewedy.rater.WebsiteRater;
 import java.io.*;
 import java.net.URLDecoder;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
 
@@ -67,13 +69,15 @@ public class App {
 
             out.println("<h2>rating for : " + URLDecoder.decode(url, "utf8") +
                     "</h2> <br /> <table border=\"1\">");
-            movies.stream()
+            List<Movie> collect = movies.stream()
                     .parallel()
                     .peek(rater::updateMovieRating)
                     .sorted(Comparator.comparing(Movie::getRating).reversed())
-                    .forEach(m -> out.println
-                            ("<tr><td> <a href=\"" + m.getLink() + "\">" + m.getName() + "</a></td><td>"
-                                    + m.getRating() + "</td></tr>"));
+                    .collect(Collectors.toList());
+
+            collect.forEach(m -> out.println
+                    ("<tr><td> <a href=\"" + m.getLink() + "\">" + m.getName() + "</a></td><td>"
+                            + m.getRating() + "</td></tr>"));
             out.println("</table>");
         } catch (InvalidCrawlerException | IOException e) {
             System.out.println(e.getMessage());
