@@ -73,8 +73,8 @@ public class App {
 
     private static void usage() {
         String out = "usage:";
-        out += "\n\tapp --hosts";
-        out += "\n\tapp [-v] <url> [limit]";
+        out += "\n\tmoviecrawler --hosts";
+        out += "\n\tmoviecrawler [-v] <url> [limit]";
         System.out.println(out);
         System.exit(-1);
     }
