@@ -23,12 +23,16 @@ public class El7lCrawler implements WebsiteCrawler {
     private static String MOVIE_LINE_END = "</p>";
     private static String FILM = "فيلم";
     private static String HREF_START = "href=\"";
+    private static String QUALITY = "بجودة";
 
     private static Movie getMovieObject(String line) {
         String name = line.substring(line.indexOf(MOVIE_LINE_START) + MOVIE_LINE_START.length(),
                 line.indexOf(MOVIE_LINE_END));
         String link = line.substring(line.indexOf(HREF_START) + HREF_START.length(), line.indexOf(MOVIE_LINE_START));
 
+        if (name.contains(QUALITY)){
+            name = name.substring(0, name.indexOf(QUALITY));
+        }
         return new Movie(name, link);
     }
 
@@ -38,7 +42,7 @@ public class El7lCrawler implements WebsiteCrawler {
     }
 
     @Override
-    public Set<Movie> getMovieNames(String url, int limit) throws IOException {
+    public Set<Movie> getMovies(String url, int limit) throws IOException {
 
         if (limit == -1){
             limit= Integer.MAX_VALUE;

@@ -21,7 +21,7 @@ public interface WebsiteCrawler {
         return "invalid url";
     }
 
-    java.util.Set<mhewedy.Movie> getMovieNames(String url, int limit) throws IOException;
+    java.util.Set<mhewedy.Movie> getMovies(String url, int limit) throws IOException;
 
     static WebsiteCrawler getCrawler(String url){
         final WebsiteCrawler defaultCrawler = (u, l) -> Collections.emptySet();
