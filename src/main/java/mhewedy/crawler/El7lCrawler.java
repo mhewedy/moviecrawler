@@ -1,6 +1,6 @@
 package mhewedy.crawler;
 
-import mhewedy.Movie;
+import mhewedy.beans.Movie;
 import mhewedy.Util;
 
 import java.io.BufferedReader;

@@ -1,8 +1,7 @@
 package mhewedy.rater;
 
-import mhewedy.Movie;
+import mhewedy.beans.Movie;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 

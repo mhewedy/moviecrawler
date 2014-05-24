@@ -1,12 +1,10 @@
 package mhewedy.rater;
 
-import com.moviejukebox.imdbapi.search.SearchObject;
 import com.moviejukebox.imdbapi.tools.ApiBuilder;
 import com.moviejukebox.imdbapi.wrapper.ResponseDetail;
-import mhewedy.Movie;
+import mhewedy.beans.Movie;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 

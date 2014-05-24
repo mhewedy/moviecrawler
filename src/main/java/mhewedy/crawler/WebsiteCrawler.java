@@ -1,5 +1,7 @@
 package mhewedy.crawler;
 
+import mhewedy.beans.Movie;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -31,7 +33,7 @@ public interface WebsiteCrawler {
 
     String getDomain();
 
-    java.util.Set<mhewedy.Movie> getMovies(String url, int limit) throws IOException;
+    java.util.Set<Movie> getMovies(String url, int limit) throws IOException;
 
     default HttpURLConnection openConnection(String url) throws IOException {
         HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();

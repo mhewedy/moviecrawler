@@ -1,4 +1,4 @@
-package mhewedy;
+package mhewedy.beans;
 
 /**
  * Created by mhewedy on 5/23/14.
@@ -6,6 +6,7 @@ package mhewedy;
 public class Movie {
     private String name;
     private String link;
+    private double rating;
 
     public Movie(String name, String link) {
         this.name = name;
@@ -16,16 +17,16 @@ public class Movie {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getLink() {
         return link;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     @Override

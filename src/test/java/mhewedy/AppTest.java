@@ -3,6 +3,7 @@ package mhewedy;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import mhewedy.beans.Movie;
 import mhewedy.crawler.El7lCrawler;
 import mhewedy.crawler.InvalidCrawlerException;
 import mhewedy.crawler.WebsiteCrawler;
