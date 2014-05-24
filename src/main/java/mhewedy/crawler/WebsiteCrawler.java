@@ -11,11 +11,11 @@ import java.util.Set;
 /**
  * Created by mhewedy on 5/23/14.
  */
-public interface WebsiteCrawler {
+public abstract class WebsiteCrawler {
 
-    static List<WebsiteCrawler> CRAWLERS = new ArrayList<>();
+    private static List<WebsiteCrawler> CRAWLERS = new ArrayList<>();
 
-    static WebsiteCrawler getCrawler(String url) throws InvalidCrawlerException {
+    public static WebsiteCrawler getCrawler(String url) throws InvalidCrawlerException {
         URI uri = URI.create(url);
         String host = uri.getHost();
 
@@ -30,12 +30,11 @@ public interface WebsiteCrawler {
         }
     }
 
-
-    default void register() {
-        CRAWLERS.add(this);
+    static {
+        CRAWLERS.add(new El7lCrawler());
     }
 
-    String getDomain();
+    public abstract String getDomain();
 
-    Set<Movie> getMovies(String url, int limit) throws IOException;
+    public abstract Set<Movie> getMovies(String url, int limit) throws IOException;
 }

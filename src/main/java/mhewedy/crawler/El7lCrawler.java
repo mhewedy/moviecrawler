@@ -17,7 +17,7 @@ import java.util.stream.Stream;
  * for http://el7l.co/ <br />
  * Created by mhewedy on 5/23/14.
  */
-public class El7lCrawler implements WebsiteCrawler {
+public class El7lCrawler extends WebsiteCrawler {
 
     private static String MOVIE_LINE_START = "\"><p style=\"font-size: 14px; font-family:Custom;\">";
     private static String MOVIE_LINE_END = "</p>";
