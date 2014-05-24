@@ -1,15 +1,18 @@
 package mhewedy.crawler;
 
-import mhewedy.beans.Movie;
 import mhewedy.Util;
+import mhewedy.beans.Movie;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -49,31 +52,61 @@ public class El7lCrawler extends WebsiteCrawler {
 
     @Override
     public Set<Movie> getMovies(String url, int limit) throws IOException {
-
         if (limit == -1) {
             limit = Integer.MAX_VALUE;
         }
 
+        final int pageSize = 40;    // page in el7l.co contains 40 movie
+        final int numRequests = (int) Math.floor(limit / pageSize);
+        Util.printVerbose("numRequests: " + numRequests);
+
         Set<Movie> ret = new HashSet<>();
-        int pageNo = 1;
-        do {
-            if (url.matches(".+/\\d+\\.html")) {
-                url = url.replaceAll("/\\d+\\.html", "/" + pageNo + ".html");
-            } else {
-                url += "/" + pageNo + ".html";
+
+        ExecutorService executorService = Executors.newCachedThreadPool();
+
+        List<Callable<Set<Movie>>> callables = new ArrayList<>();
+        for (int i=0; i<numRequests; i++){
+            Util.printVerbose("creating callable #" + i);
+            int iRef = i;
+            callables.add(() -> getMoviesPerPage(url, iRef));
+        }
+
+        try {
+            Util.printVerbose("invoking all");
+            List<Future<Set<Movie>>> futures = executorService.invokeAll(callables);
+
+            for (Future<Set<Movie>> future : futures){
+                Util.printVerbose("waiting for future");
+                ret.addAll(future.get());
             }
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println(e.getMessage());
+        }
 
-            Util.printVerbose("requesting " + url);
-            HttpURLConnection conn = Util.openConnection(url);
-            InputStream stream = conn.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
-            ret.addAll(_getMovie(br.lines()));
-            pageNo++;
+        Util.printVerbose("done create movie list");
 
-            stream.close();
-            conn.disconnect();
-        } while (ret.size() < limit);
         return ret;
+    }
+
+    private Set<Movie> getMoviesPerPage(String url, int pageNo) throws IOException {
+        url = getQualifiedUrl(url, pageNo);
+        Util.printVerbose("requesting " + url);
+        HttpURLConnection conn = Util.openConnection(url);
+        InputStream stream = conn.getInputStream();
+        BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+        Set<Movie> movies = _getMovie(br.lines());
+        stream.close();
+        conn.disconnect();
+        return movies;
+    }
+
+    private String getQualifiedUrl(String url, int pageNo){
+        if (url.matches(".+/\\d+\\.html")) {
+            url = url.replaceAll("/\\d+\\.html", "/" + pageNo + ".html");
+        } else {
+            url += "/" + pageNo + ".html";
+        }
+        return url;
     }
 
     private Set<Movie> _getMovie(Stream<String> lines) {
