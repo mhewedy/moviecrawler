@@ -64,7 +64,7 @@ public class El7lCrawler implements WebsiteCrawler {
             }
 
             Util.printVerbose("requesting " + url);
-            HttpURLConnection conn = openConnection(url);
+            HttpURLConnection conn = Util.openConnection(url);
             InputStream stream = conn.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(stream));
             ret.addAll(_getMovie(br.lines()));
@@ -82,11 +82,5 @@ public class El7lCrawler implements WebsiteCrawler {
                 .map(movie -> new Movie(movie.getName().replace(FILM, "").trim(), movie.getLink()))
                 .collect(Collectors.toSet());
         return movies;
-    }
-
-    public static void main(String[] args) {
-        String regex = ".*(19|20)\\d{2}.*";
-
-        System.out.println("-2010".matches(regex));
     }
 }

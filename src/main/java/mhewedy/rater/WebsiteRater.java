@@ -2,6 +2,7 @@ package mhewedy.rater;
 
 import mhewedy.beans.Movie;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,6 +11,6 @@ import java.util.Set;
  */
 public interface WebsiteRater {
 
-    Map<Movie, Integer> getMovieRatings(Set<Movie> movieNameList);
+    void updateMovieRating(Movie movie) throws IOException;
 
 }

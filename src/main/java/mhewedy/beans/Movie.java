@@ -34,9 +34,9 @@ public class Movie {
         return "Movie{" +
                 "name='" + name + '\'' +
                 ", link='" + link + '\'' +
+                ", rating=" + rating +
                 '}';
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

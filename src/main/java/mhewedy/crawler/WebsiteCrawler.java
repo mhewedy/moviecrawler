@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.util.Set;
 
 /**
  * Created by mhewedy on 5/23/14.
@@ -32,12 +33,5 @@ public interface WebsiteCrawler {
     }
 
     String getDomain();
-
-    java.util.Set<Movie> getMovies(String url, int limit) throws IOException;
-
-    default HttpURLConnection openConnection(String url) throws IOException {
-        HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-        conn.setRequestProperty("User-Agent", "moviecrawler");
-        return conn;
-    }
+    Set<Movie> getMovies(String url, int limit) throws IOException;
 }
