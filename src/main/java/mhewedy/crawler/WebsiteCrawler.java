@@ -7,6 +7,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by mhewedy on 5/23/14.
@@ -28,6 +29,10 @@ public abstract class WebsiteCrawler {
         } else {
             throw new InvalidCrawlerException("host info not correct");
         }
+    }
+
+    public static List<String> getAllSupportedDomains() {
+        return CRAWLERS.stream().map(WebsiteCrawler::getDomain).collect(Collectors.toList());
     }
 
     static {
