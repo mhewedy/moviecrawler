@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public interface WebsiteRater {
 
-    void updateMovieRating(Movie movie) throws IOException;
+    void updateMovieRating(Movie movie);
 
     static WebsiteRater getRater(){
         return new OmdbapiRater();

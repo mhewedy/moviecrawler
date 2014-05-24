@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -22,17 +23,23 @@ public class OmdbapiRater implements WebsiteRater {
     private static Gson gson = new Gson();
 
     @Override
-    public void updateMovieRating(Movie movie) throws IOException {
-        String imdbId = getImdbId(movie.getName());
-        if (!imdbId.isEmpty()) {
-            movie.setRating(getRating(imdbId));
+    public void updateMovieRating(Movie movie) {
+        try {
+            String imdbId = getImdbId(movie.getName());
+            if (!imdbId.isEmpty()) {
+                movie.setRating(getRating(imdbId));
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     private String getImdbId(String movieName) throws IOException {
         String imdbID = "";
 
-        HttpURLConnection conn = Util.openConnection(SEARCH_URL.replace("$name", movieName));
+        String url = SEARCH_URL.replace("$name", URLEncoder.encode(movieName, "utf8"));
+        Util.printVerbose(url);
+        HttpURLConnection conn = Util.openConnection(url);
         InputStream stream = conn.getInputStream();
         Map map = gson.fromJson(new InputStreamReader(stream), Map.class);
 
@@ -51,8 +58,9 @@ public class OmdbapiRater implements WebsiteRater {
 
     private double getRating(String imdbID) throws IOException {
         double imdbRating = 0.0;
-
-        HttpURLConnection conn = Util.openConnection(DETAILS_URL.replace("$imdbId", imdbID));
+        String url = DETAILS_URL.replace("$imdbId", imdbID);
+        Util.printVerbose(url);
+        HttpURLConnection conn = Util.openConnection(url);
         InputStream stream = conn.getInputStream();
         Map map = gson.fromJson(new InputStreamReader(stream), Map.class);
 

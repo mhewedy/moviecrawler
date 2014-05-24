@@ -3,6 +3,7 @@ package mhewedy;
 import mhewedy.beans.Movie;
 import mhewedy.crawler.InvalidCrawlerException;
 import mhewedy.crawler.WebsiteCrawler;
+import mhewedy.rater.WebsiteRater;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -53,7 +54,10 @@ public class App {
             WebsiteCrawler crawler = WebsiteCrawler.getCrawler(url);
             Set<Movie> movies = crawler.getMovies(url, limit);
 
+            WebsiteRater rater = WebsiteRater.getRater();
+
             movies.stream()
+                    .peek(rater::updateMovieRating)
                     .sorted(Comparator.comparing(Movie::getRating).reversed())
                     .forEach(m -> System.out.println(m.getName() + "\t" + m.getLink() + "\t" + m.getRating()));
 
