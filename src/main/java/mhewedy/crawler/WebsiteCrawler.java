@@ -25,7 +25,7 @@ public abstract class WebsiteCrawler {
                     .filter(wc -> host.equalsIgnoreCase(wc.getDomain()))
                     .findFirst()
                     .orElseThrow(() -> new InvalidCrawlerException("cannot handle website, " +
-                            "use -h to print all supported websites"));
+                            "use --hosts to print all supported websites"));
         } else {
             throw new InvalidCrawlerException("host info not correct");
         }

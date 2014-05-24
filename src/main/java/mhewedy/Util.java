@@ -9,8 +9,13 @@ import java.net.URL;
  */
 public class Util {
 
+    private static boolean _isVerbose = false;
+
+    public static void setVerbose(boolean isVerbose){
+        _isVerbose = isVerbose;
+    }
     public static boolean isVerbose(){
-        return false;
+        return _isVerbose;
     }
 
     public static void printVerbose(Object o){
