@@ -6,6 +6,7 @@ import mhewedy.crawler.WebsiteCrawler;
 import mhewedy.rater.WebsiteRater;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Comparator;
 import java.util.Set;
 
@@ -56,13 +57,14 @@ public class App {
 
             WebsiteRater rater = WebsiteRater.getRater();
 
-            System.out.println("<table border=\"1\">");
+            System.out.println("<h2>rating for : " + URLDecoder.decode(url, "utf8") +
+                    "</h2> <br /> <table border=\"1\">");
             movies.stream()
                     .peek(rater::updateMovieRating)
                     .sorted(Comparator.comparing(Movie::getRating).reversed())
                     .forEach(m -> System.out.println
                             ("<tr><td> <a href=\"" + m.getLink() + "\">" + m.getName() + "</a></td><td>"
-                                    + m.getRating()+"</td></tr>"));
+                                    + m.getRating() + "</td></tr>"));
             System.out.println("</table>");
         } catch (InvalidCrawlerException | IOException e) {
             System.out.println(e.getMessage());
