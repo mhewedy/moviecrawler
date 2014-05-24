@@ -77,6 +77,7 @@ public class App {
 
             collect.forEach(m -> out.println
                     ("<tr><td> <a href=\"" + m.getLink() + "\">" + m.getName() + "</a></td><td>"
+                            + "<img src=\"" + m.getPoster() + "\" /></td><td>" +
                             + m.getRating() + "</td></tr>"));
             out.println("</table>");
         } catch (InvalidCrawlerException | IOException e) {

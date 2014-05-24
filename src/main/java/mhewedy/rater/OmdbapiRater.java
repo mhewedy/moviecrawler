@@ -27,7 +27,7 @@ public class OmdbapiRater implements WebsiteRater {
         try {
             String imdbId = getImdbId(movie.getName());
             if (!imdbId.isEmpty()) {
-                movie.setRating(getRating(imdbId));
+                fillMovieData(imdbId, movie);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -56,7 +56,7 @@ public class OmdbapiRater implements WebsiteRater {
         return imdbID;
     }
 
-    private double getRating(String imdbID) throws IOException {
+    private void fillMovieData(String imdbID, Movie movie) throws IOException {
         double imdbRating = 0.0;
         String url = DETAILS_URL.replace("$imdbId", imdbID);
         Util.printVerbose(url);
@@ -65,13 +65,15 @@ public class OmdbapiRater implements WebsiteRater {
         Map map = gson.fromJson(new InputStreamReader(stream), Map.class);
 
         if (map != null) {
+            movie.setPoster((String) map.get("poster"));
+
             String imdbRatingStr = (String) map.get("imdbRating");
             if (imdbRatingStr.matches("\\d+.\\d+")) {
                 imdbRating = Double.parseDouble(imdbRatingStr);
+                movie.setRating(imdbRating);
             }
         }
         stream.close();
         conn.disconnect();
-        return imdbRating;
     }
 }

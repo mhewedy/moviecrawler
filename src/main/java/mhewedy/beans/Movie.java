@@ -7,6 +7,7 @@ public class Movie {
     private String name;
     private String link;
     private double rating;
+    private String poster;
 
     public Movie(String name, String link) {
         this.name = name;
@@ -27,6 +28,14 @@ public class Movie {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 
     @Override
