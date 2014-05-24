@@ -56,11 +56,14 @@ public class App {
 
             WebsiteRater rater = WebsiteRater.getRater();
 
+            System.out.println("<table>");
             movies.stream()
                     .peek(rater::updateMovieRating)
                     .sorted(Comparator.comparing(Movie::getRating).reversed())
-                    .forEach(m -> System.out.println(m.getName() + "\t" + m.getLink() + "\t" + m.getRating()));
-
+                    .forEach(m -> System.out.println
+                            ("<tr><td>" + m.getName() + "</td><td>" + m.getLink() + "</td><td>"
+                                    + m.getRating()+"</td></tr>"));
+            System.out.println("</table>");
         } catch (InvalidCrawlerException | IOException e) {
             System.out.println(e.getMessage());
         }
