@@ -23,15 +23,21 @@ public class El7lCrawler implements WebsiteCrawler {
     private static String MOVIE_LINE_END = "</p>";
     private static String FILM = "فيلم";
     private static String HREF_START = "href=\"";
-    private static String QUALITY = "بجودة";
+    private static String QUALITY = "بجود";
 
     private static Movie getMovieObject(String line) {
+        // extract movie name
         String name = line.substring(line.indexOf(MOVIE_LINE_START) + MOVIE_LINE_START.length(),
                 line.indexOf(MOVIE_LINE_END));
         String link = line.substring(line.indexOf(HREF_START) + HREF_START.length(), line.indexOf(MOVIE_LINE_START));
 
+        // remove invalid work بجودة
         if (name.contains(QUALITY)) {
             name = name.substring(0, name.indexOf(QUALITY));
+        }
+        // remove date from movie name
+        if (name.matches(".*(19|20)\\d{2}.*")){
+            name.replaceAll("(19|20)\\d{2}", "");
         }
         return new Movie(name, link);
     }
@@ -76,5 +82,11 @@ public class El7lCrawler implements WebsiteCrawler {
                 .map(movie -> new Movie(movie.getName().replace(FILM, "").trim(), movie.getLink()))
                 .collect(Collectors.toSet());
         return movies;
+    }
+
+    public static void main(String[] args) {
+        String regex = ".*(19|20)\\d{2}.*";
+
+        System.out.println("-2010".matches(regex));
     }
 }
