@@ -13,4 +13,8 @@ public interface WebsiteRater {
 
     void updateMovieRating(Movie movie) throws IOException;
 
+    static WebsiteRater getRater(){
+        return new OmdbapiRater();
+    }
+
 }

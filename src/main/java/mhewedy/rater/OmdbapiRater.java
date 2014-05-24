@@ -24,7 +24,6 @@ public class OmdbapiRater implements WebsiteRater {
     @Override
     public void updateMovieRating(Movie movie) throws IOException {
         String imdbId = getImdbId(movie.getName());
-
         if (!imdbId.isEmpty()) {
             movie.setRating(getRating(imdbId));
         }
