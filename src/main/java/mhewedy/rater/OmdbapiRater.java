@@ -65,7 +65,7 @@ public class OmdbapiRater implements WebsiteRater {
         Map map = gson.fromJson(new InputStreamReader(stream), Map.class);
 
         if (map != null) {
-            movie.setPoster((String) map.get("poster"));
+            movie.setPoster((String) map.get("Poster"));
 
             String imdbRatingStr = (String) map.get("imdbRating");
             if (imdbRatingStr.matches("\\d+.\\d+")) {
