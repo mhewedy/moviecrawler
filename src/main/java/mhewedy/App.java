@@ -93,7 +93,7 @@ public class App {
     private static void usage() {
         String out = "usage:";
         out += "\n\tmoviecrawler --hosts";
-        out += "\n\tmoviecrawler [-v] <url> [limit]";
+        out += "\n\tmoviecrawler [-v] <url> [limit] <outputfile>";
         System.out.println(out);
         System.exit(-1);
     }
