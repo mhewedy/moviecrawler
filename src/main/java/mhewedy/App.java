@@ -65,6 +65,11 @@ public class App {
             WebsiteCrawler crawler = WebsiteCrawler.getCrawler(url);
             Set<Movie> movies = crawler.getMovies(url, limit);
 
+            if (movies.isEmpty()){
+                System.err.println("no movies found");
+                return;
+            }
+
             WebsiteRater rater = WebsiteRater.getRater();
 
             out.println("<h2>rating for : " + URLDecoder.decode(url, "utf8") +

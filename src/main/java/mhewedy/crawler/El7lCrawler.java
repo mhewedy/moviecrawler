@@ -66,7 +66,7 @@ public class El7lCrawler extends WebsiteCrawler {
 
         List<Callable<Set<Movie>>> callables = new ArrayList<>();
 
-        // todo should i start from posted page number
+        // todo should start from posted page number
         for (int i=0; i<numRequests; i++){
             Util.printVerbose("creating callable #" + i);
             int iRef = i;

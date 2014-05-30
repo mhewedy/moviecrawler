@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,11 @@ public class OmdbapiRater implements WebsiteRater {
                 fillMovieData(imdbId, movie);
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            if (e instanceof UnknownHostException){
+                System.err.println("cannot resolve host: " + e.getMessage() + "\n   ");
+            }else {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -51,6 +56,7 @@ public class OmdbapiRater implements WebsiteRater {
                 imdbID = (String) title.get("imdbID");
             }
         }
+        Util.printVerbose(movieName + " -> " + imdbID);
         stream.close();
         conn.disconnect();
         return imdbID;
