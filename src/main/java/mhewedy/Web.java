@@ -15,7 +15,7 @@ public class Web {
 
     public static void start() {
 
-        String portEnv = System.getenv("PORT");
+        String portEnv = Optional.ofNullable(System.getenv("PORT")).orElse("");
         if (portEnv.matches("\\d+")){
             setPort(Integer.parseInt(portEnv));
         }
