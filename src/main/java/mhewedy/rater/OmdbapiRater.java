@@ -21,6 +21,7 @@ public class OmdbapiRater implements WebsiteRater {
 
     private static final String SEARCH_URL = "http://www.omdbapi.com/?s=$name&yg=0&r=json";
     private static final String DETAILS_URL = "http://www.omdbapi.com/?i=$imdbId&r=json";
+    private static final String IMDB_URL = "http://www.imdb.com/title/$imdbId/";
     private static Gson gson = new Gson();
 
     @Override
@@ -71,7 +72,12 @@ public class OmdbapiRater implements WebsiteRater {
         Map map = gson.fromJson(new InputStreamReader(stream), Map.class);
 
         if (map != null) {
-            movie.setPoster((String) map.get("Poster"));
+            String poster = (String) map.get("Poster");
+            if (poster != null && !poster.isEmpty()){
+                movie.setPoster(poster);
+            }
+
+            movie.setImdbUrl(IMDB_URL.replace("$imdbId", imdbID));
 
             String imdbRatingStr = (String) map.get("imdbRating");
             if (imdbRatingStr.matches("\\d+.\\d+")) {

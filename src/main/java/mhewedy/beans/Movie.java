@@ -8,6 +8,7 @@ public class Movie {
     private String link;
     private double rating;
     private String poster;
+    private String imdbUrl;
 
     public Movie(String name, String link) {
         this.name = name;
@@ -36,6 +37,14 @@ public class Movie {
 
     public void setPoster(String poster) {
         this.poster = poster;
+    }
+
+    public void setImdbUrl(String imdbUrl) {
+        this.imdbUrl = imdbUrl;
+    }
+
+    public String getImdbUrl() {
+        return imdbUrl;
     }
 
     @Override

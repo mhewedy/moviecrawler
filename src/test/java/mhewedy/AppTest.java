@@ -65,7 +65,6 @@ public class AppTest
         try {
             WebsiteCrawler crawler = WebsiteCrawler.getCrawler("http://el7l.co");
             String url = "http://el7l.co/tag/%D8%A7%D9%81%D9%84%D8%A7%D9%85+%D8%B1%D8%B9%D8%A8";
-
             assertTrue(crawler.getMovies(url, 100).size() == 120);
         } catch (InvalidCrawlerException | IOException e) {
             e.printStackTrace();

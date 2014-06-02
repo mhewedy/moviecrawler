@@ -57,7 +57,7 @@ public class El7lCrawler extends WebsiteCrawler {
         }
 
         final int pageSize = 40;    // page in el7l.co contains 40 movie
-        final int numRequests = (int) Math.floor(limit / pageSize);
+        final int numRequests = (int) Math.round((double) limit / pageSize);
         Util.printVerbose("numRequests: " + numRequests);
 
         Set<Movie> ret = new HashSet<>();
@@ -67,7 +67,7 @@ public class El7lCrawler extends WebsiteCrawler {
         List<Callable<Set<Movie>>> callables = new ArrayList<>();
 
         // todo should start from posted page number
-        for (int i=0; i<numRequests; i++){
+        for (int i=1; i<=numRequests; i++){
             Util.printVerbose("creating callable #" + i);
             int iRef = i;
             callables.add(() -> getMoviesPerPage(url, iRef));
