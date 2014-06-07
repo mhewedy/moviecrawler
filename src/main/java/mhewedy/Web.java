@@ -1,5 +1,7 @@
 package mhewedy;
 
+import spark.Response;
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Optional;
@@ -29,6 +31,7 @@ public class Web {
 
 
         get("/process", (request, response) -> {
+            response.header("content-type", "text/html; charset=utf-8");
 
             Optional<String> url = Optional.ofNullable(request.queryParams("url"));
             Optional<String> limit = Optional.ofNullable(request.queryParams("limit"));

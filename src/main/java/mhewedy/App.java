@@ -36,6 +36,9 @@ public class App {
                 System.arraycopy(args, 1, target, 0, target.length);
                 CLI.start(target);
             }else if ("-web".equals(args[0])){
+                if (args.length >= 2 && "-v".equals(args[1])){
+                    Util.setVerbose(true);
+                }
                 Web.start();
             }else {
                 usage();
@@ -82,7 +85,7 @@ public class App {
         String out = "usage:";
         out += "\n\tmoviecrawler -cli --hosts";
         out += "\n\tmoviecrawler -cli [-v] <url> [limit] <outputfile>";
-        out += "\n\tmoviecrawler -web";
+        out += "\n\tmoviecrawler -web [-v]";
         System.out.println(out);
         System.exit(-1);
     }
