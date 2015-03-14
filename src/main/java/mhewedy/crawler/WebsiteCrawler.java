@@ -1,13 +1,13 @@
 package mhewedy.crawler;
 
-import mhewedy.beans.Movie;
-
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import mhewedy.beans.Movie;
 
 /**
  * Created by mhewedy on 5/23/14.
@@ -17,6 +17,8 @@ public abstract class WebsiteCrawler {
     private static List<WebsiteCrawler> CRAWLERS = new ArrayList<>();
 
     public static WebsiteCrawler getCrawler(String url) throws InvalidCrawlerException {
+		url = url.substring(0, url.indexOf("/", url.indexOf("://") + 3));
+		System.out.println("URL:" + url);
         URI uri = URI.create(url);
         String host = uri.getHost();
 

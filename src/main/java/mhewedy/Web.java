@@ -1,14 +1,11 @@
 package mhewedy;
 
-import spark.Response;
+import static spark.Spark.*;
+import static spark.SparkBase.*;
 
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Optional;
-
-import static spark.Spark.get;
-import static spark.Spark.staticFileLocation;
-import static spark.SparkBase.setPort;
 
 /**
  * Created by mhewedy on 6/1/14.
@@ -55,4 +52,8 @@ public class Web {
         });
 
     }
+
+	public static void main(String[] args) {
+		Web.start();
+	}
 }
