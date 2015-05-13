@@ -77,6 +77,7 @@ public class App {
                             "</tr>"));
             out.println("</table>");
         } catch (InvalidCrawlerException | IOException e) {
+        	System.exit(-1);
             System.out.println(e.getMessage());
         }
     }
