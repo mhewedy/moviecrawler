@@ -1,6 +1,8 @@
 moviecrawler
 =============
 
+[![Build Status](https://travis-ci.org/MuhammadHewedy/moviecrawler.svg?branch=master)](https://travis-ci.org/MuhammadHewedy/moviecrawler)
+
 Java library to crawel movie websites and get rating for movies from movie online databases
 
 
